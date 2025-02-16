@@ -17,6 +17,16 @@ local opts = { noremap = true, silent = true }
 -- quit file
 -- vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', opts)
 
+-- Remove hightlights when pressing ESC
+vim.api.nvim_set_keymap("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true })
+
+-- Highlight the text yanked for 200 miliseconds.
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+	end,
+})
+
 -- Allow to scape with a fast combination of jk or JK
 vim.keymap.set("i", "jk", "<ESC>", opts)
 vim.keymap.set("i", "JK", "<ESC>", opts)
@@ -81,10 +91,6 @@ vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open float
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- Toggle Term keymaps
-vim.api.nvim_set_keymap("n", "<leader>-", ":ToggleTerm<CR>", opts)
-vim.api.nvim_set_keymap("i", "<leader>-", ":ToggleTerm<CR>", opts)
-vim.api.nvim_set_keymap("v", "<leader>-", ":ToggleTerm<CR>", opts)
-vim.api.nvim_set_keymap("t", "<leader>-", ":ToggleTerm<CR>", opts)
 vim.api.nvim_set_keymap("n", "<C-->", "<C-\\>", opts)
 vim.api.nvim_set_keymap("i", "<C-->", "<C-\\>", opts)
 vim.api.nvim_set_keymap("v", "<C-->", "<C-\\>", opts)
@@ -107,6 +113,11 @@ function _LazygitToggle()
 		cmd = "lazygit",
 		direction = "float", -- Floating window
 		hidden = true, -- Doesn't interfere with other terminals
+		on_open = function(term)
+			-- Map 'q' and 'Esc' to close LazyGit
+			vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<Esc>", "<cmd>close<CR>", { noremap = true, silent = true })
+			vim.api.nvim_buf_set_keymap(term.bufnr, "t", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+		end,
 	})
 
 	lazygit:toggle()
