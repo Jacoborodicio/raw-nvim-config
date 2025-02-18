@@ -26,4 +26,6 @@ require("lazy").setup({
 	require("plugins.misc"),
 	require("plugins.marks"),
 	require("plugins.toggle-terminal"),
+	require("plugins.comments"),
+	require("plugins.flash"),
 })
