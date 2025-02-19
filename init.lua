@@ -28,4 +28,5 @@ require("lazy").setup({
 	require("plugins.toggle-terminal"),
 	require("plugins.comments"),
 	require("plugins.flash"),
+	require("plugins.ts-autotag"),
 })
