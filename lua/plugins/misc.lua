@@ -17,9 +17,6 @@ return {
 		"tpope/vim-rhubarb",
 	},
 	{
-		"tpope/vim-surround",
-	},
-	{
 		-- Hints keybinds
 		"folke/which-key.nvim",
 	},

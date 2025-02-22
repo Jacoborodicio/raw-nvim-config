@@ -29,4 +29,5 @@ require("lazy").setup({
 	require("plugins.comments"),
 	require("plugins.flash"),
 	require("plugins.ts-autotag"),
+	require("plugins.surround"),
 })
