@@ -9,13 +9,10 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 local opts = { noremap = true, silent = true }
 
 -- save file
--- vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
+vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", opts)
 
 -- save file without auto-formatting
 -- vim.keymap.set('n', '<leader>sn', '<cmd>noautocmd w <CR>', opts)
-
--- quit file
--- vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', opts)
 
 -- Remove hightlights when pressing ESC
 vim.api.nvim_set_keymap("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true })
@@ -67,12 +64,6 @@ vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", opts)
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", opts)
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
-
--- Tabs
--- vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts) -- open new tab
--- vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- close current tab
--- vim.keymap.set("n", "<leader>tn", ":tabn<CR>", opts) --  go to next tab
--- vim.keymap.set("n", "<leader>tp", ":tabp<CR>", opts) --  go to previous tab
 
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
