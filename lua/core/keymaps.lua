@@ -46,11 +46,9 @@ vim.keymap.set("n", "<Left>", ":vertical resize -2<CR>", opts)
 vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 
 -- Buffers
--- vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
--- vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", opts)
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
-vim.keymap.set("n", "<leader>x", ":bdelete!<CR>", opts) -- close buffer
+vim.keymap.set("n", "<leader>xx", ":bdelete!<CR>", opts) -- close buffer
 vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", opts) -- new buffer
 
 -- Window management
@@ -75,19 +73,13 @@ vim.keymap.set("v", ">", ">gv", opts)
 -- Keep last yanked when pasting
 vim.keymap.set("v", "p", '"_dP', opts)
 
--- Diagnostic keymaps
+-- Diagnostic key maps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- Toggle Term keymaps
-vim.api.nvim_set_keymap("n", "<C-->", "<C-\\>", opts)
-vim.api.nvim_set_keymap("i", "<C-->", "<C-\\>", opts)
-vim.api.nvim_set_keymap("v", "<C-->", "<C-\\>", opts)
-vim.api.nvim_set_keymap("t", "<C-->", "<C-\\>", opts)
---
--- Tema lazy git
+-- Topic lazy git
 vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>lua _LazygitToggle()<CR>", { noremap = true, silent = true })
 
 function _LazygitToggle()
@@ -113,3 +105,16 @@ function _LazygitToggle()
 
 	lazygit:toggle()
 end
+
+vim.keymap.set("n", "<C-_>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("t", "<C-_>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("i", "<C-_>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("v", "<C-_>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<C-b>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("t", "<C-b>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("i", "<C-b>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("v", "<C-b>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+
+-- It allows to jump to Normal mode from terminal when pressing ESC twice
+vim.keymap.set("t", "<C-f>", [[<C-\><C-n>]], { noremap = true, silent = true })

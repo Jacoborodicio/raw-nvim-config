@@ -30,4 +30,5 @@ require("lazy").setup({
 	require("plugins.flash"),
 	require("plugins.ts-autotag"),
 	require("plugins.surround"),
+	require("plugins.render-markdown"),
 })

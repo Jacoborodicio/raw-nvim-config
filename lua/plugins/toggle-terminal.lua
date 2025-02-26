@@ -4,7 +4,7 @@ return {
 	config = function()
 		require("toggleterm").setup({
 			size = 15, -- Tamaño de la terminal (en modo horizontal)
-			open_mapping = [[<C-0>]], -- Tecla para abrir/cerrar
+			-- open_mapping = [[<C-0>]], -- Tecla para abrir/cerrar
 			hide_numbers = true, -- Oculta los números de línea
 			shade_terminals = true,
 			start_in_insert = true, -- Inicia en modo INSERT

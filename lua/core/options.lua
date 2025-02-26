@@ -1,4 +1,5 @@
-vim.o.foldmethod = "indent" -- Uses identation to detect folds
+vim.o.spell = true
+vim.o.foldmethod = "indent" -- Uses indentation to detect folds
 vim.o.foldenable = true -- Enables folding (open by default)
 vim.o.foldlevel = 99 -- It opens all the folds by default
 vim.o.foldlevelstart = 99 -- It keeps all the folds open when starting
@@ -18,7 +19,7 @@ vim.o.softtabstop = 4 -- Number of spaces that a tab counts for while performing
 vim.o.expandtab = true -- Convert tabs to spaces (default: false)
 vim.o.scrolloff = 4 -- Minimal number of screen lines to keep above and below the cursor (default: 0)
 vim.o.sidescrolloff = 8 -- Minimal number of screen columns either side of cursor if wrap is `false` (default: 0)
-vim.o.cursorline = false -- Highlight the current line (default: false)
+vim.o.cursorline = true -- Highlight the current line (default: false)
 vim.o.incsearch = true -- Highlight matches as you type
 vim.o.splitbelow = true -- Force all horizontal splits to go below current window (default: false)
 vim.o.splitright = true -- Force all vertical splits to go to the right of current window (default: false)

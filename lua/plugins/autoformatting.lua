@@ -17,6 +17,9 @@ return {
 				"eslint_d", -- ts/js linter
 				"shfmt", -- shell formatter
 				"checkmake", --linter for Makefiles
+				"gofumpt", -- Go formatter (alternative to gofmt)
+				"goimports", -- Adds missing imports in Go
+				"golangci_lint", -- Linter for Go
 			},
 			automatic_installation = true,
 		})
@@ -33,6 +36,7 @@ return {
 					"json",
 					"yaml",
 					"markdown",
+					"go",
 				},
 			}),
 			formatting.stylua,

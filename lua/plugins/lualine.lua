@@ -42,7 +42,15 @@ return {
 				globalstatus = true,
 				icons_enabled = true,
 				-- theme = 'nord', -- Set theme based on environment variable
-				theme = "iceberg_dark",
+				-- theme = "iceberg_dark",
+				theme = {
+					normal = { c = { fg = "#ffffff", bg = "NONE" } }, -- Transparent background
+					insert = { c = { fg = "#ffffff", bg = "NONE" } },
+					visual = { c = { fg = "#ffffff", bg = "NONE" } },
+					replace = { c = { fg = "#ffffff", bg = "NONE" } },
+					command = { c = { fg = "#ffffff", bg = "NONE" } },
+					inactive = { c = { fg = "#888888", bg = "NONE" } },
+				},
 				-- Some useful glyphs:
 				-- https://www.nerdfonts.com/cheat-sheet
 				--        
