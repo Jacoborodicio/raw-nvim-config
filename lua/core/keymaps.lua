@@ -1,12 +1,12 @@
+-- For conciseness
+local opts = { noremap = true, silent = true }
+
 -- Set leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Disable the spacebar key's default behavior in Normal and Visual modes
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-
--- For conciseness
-local opts = { noremap = true, silent = true }
 
 -- save file
 vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", opts)
@@ -29,7 +29,7 @@ vim.keymap.set("i", "jk", "<ESC>", opts)
 vim.keymap.set("i", "JK", "<ESC>", opts)
 
 -- delete single character without copying into register
-vim.keymap.set("n", "x", '"_x', opts)
+-- vim.keymap.set("n", "x", '"_x', opts)
 
 -- Vertical scroll and center
 vim.keymap.set("n", "<C-d>", "17<C-d>zz", opts)
