@@ -55,6 +55,14 @@ return { -- Autocompletion
 							{ i(1, "functionName"), rep(1) }
 						)
 					),
+					s("clf", {
+						t("console.log('%c 🔍 "),
+						i(1, "formData"),
+						t(" contents 🔰:', 'color:lightblue');"),
+						t({ "", "for (let [key, value] of " }),
+						rep(1),
+						t({ ".entries()) {", "\tconsole.log(`%c ${key}:`, 'color:orange', value);", "}" }),
+					}),
 				})
 
 				-- Define el snippet para React Functional Component

@@ -3,7 +3,6 @@ return {
 	lazy = false,
 	priority = 1000,
 	config = function()
-		-- Example config in lua
 		vim.g.nord_contrast = true
 		vim.g.nord_borders = false
 		vim.g.nord_disable_background = true
@@ -24,5 +23,6 @@ return {
 		end
 
 		vim.keymap.set("n", "<leader>bg", toggle_transparency, { noremap = true, silent = true })
+		vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#ffffff", bg = "#000000", bold = true })
 	end,
 }

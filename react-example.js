@@ -6,3 +6,8 @@ const whatever = () => {
     </div>
   );
 };
+
+console.log("%c 🔍 data contents 🔰:", "color:lightblue");
+for (let [key, value] of data.entries()) {
+  console.log(`%c ${key}:`, "color:orange", value);
+}

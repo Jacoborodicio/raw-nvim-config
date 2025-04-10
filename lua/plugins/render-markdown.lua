@@ -5,8 +5,10 @@ return {
 	---@type render.md.UserConfig
 	opts = {
 		checkbox = {
-			unchecked = { icon = "✘ " },
-			checked = { icon = "✔ " },
+			unchecked = { icon = "[ ] " },
+			checked = { icon = "[✔] " },
+			-- unchecked = { icon = "⭕ " },
+			-- checked = { icon = "✅ " },
 			custom = { todo = { raw = "[todo]", rendered = "◯ab " } },
 			enabled = true,
 			render_modes = false,

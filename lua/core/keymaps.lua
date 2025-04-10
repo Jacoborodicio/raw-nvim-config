@@ -97,9 +97,7 @@ function _LazygitToggle()
 		direction = "float", -- Floating window
 		hidden = true, -- Doesn't interfere with other terminals
 		on_open = function(term)
-			-- Map 'q' and 'Esc' to close LazyGit
 			vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<Esc>", "<cmd>close<CR>", { noremap = true, silent = true })
-			vim.api.nvim_buf_set_keymap(term.bufnr, "t", "q", "<cmd>close<CR>", { noremap = true, silent = true })
 		end,
 	})
 
