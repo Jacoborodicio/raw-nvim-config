@@ -11,9 +11,6 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 -- save file
 vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", opts)
 
--- save file without auto-formatting
--- vim.keymap.set('n', '<leader>sn', '<cmd>noautocmd w <CR>', opts)
-
 -- Remove hightlights when pressing ESC
 vim.api.nvim_set_keymap("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true })
 
@@ -27,9 +24,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- Allow to scape with a fast combination of jk or JK
 vim.keymap.set("i", "jk", "<ESC>", opts)
 vim.keymap.set("i", "JK", "<ESC>", opts)
-
--- delete single character without copying into register
--- vim.keymap.set("n", "x", '"_x', opts)
 
 -- Vertical scroll and center
 vim.keymap.set("n", "<C-d>", "17<C-d>zz", opts)
@@ -49,7 +43,6 @@ vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", opts)
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
 vim.keymap.set("n", "<leader>xx", ":bdelete!<CR>", opts) -- close buffer
-vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", opts) -- new buffer
 
 -- Window management
 vim.keymap.set("n", "<leader>v", "<C-w>v", opts) -- split window vertically
@@ -80,7 +73,12 @@ vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open float
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- Topic lazy git
-vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>lua _LazygitToggle()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>gg",
+	"<cmd>lua _LazygitToggle()<CR>",
+	{ noremap = true, silent = true, desc = "Open Lazy Git" }
+)
 
 function _LazygitToggle()
 	-- Check if we're inside a Git repository
@@ -104,15 +102,30 @@ function _LazygitToggle()
 	lazygit:toggle()
 end
 
-vim.keymap.set("n", "<C-_>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
-vim.keymap.set("t", "<C-_>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
-vim.keymap.set("i", "<C-_>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
-vim.keymap.set("v", "<C-_>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-->", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("t", "<C-->", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("i", "<C-->", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("v", "<C-->", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<C-b>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 vim.keymap.set("t", "<C-b>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 vim.keymap.set("i", "<C-b>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 vim.keymap.set("v", "<C-b>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 
--- It allows to jump to Normal mode from terminal when pressing ESC twice
+-- It allows to jump to Normal mode from terminal
 vim.keymap.set("t", "<C-f>", [[<C-\><C-n>]], { noremap = true, silent = true })
+
+-- It allows to close every opened buffer but the current one
+vim.keymap.set("n", "<leader>bd", function()
+	local curr = vim.fn.bufnr("%")
+	vim.cmd('silent! bufdo if bufnr("%") != ' .. curr .. " | bd | endif")
+end, { noremap = true, silent = true, desc = "Close all buffers except the current one" })
+
+vim.keymap.set(
+	"n",
+	"<leader>cp",
+	"<cmd>let @+ = expand('%')<CR>",
+	{ noremap = true, silent = true, desc = "Copy the relative of the current file" }
+)
+
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Hover action: Show Type/Documentation" })

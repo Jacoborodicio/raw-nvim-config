@@ -24,29 +24,48 @@ return {
 			automatic_installation = true,
 		})
 
-		local sources = {
-			diagnostics.checkmake,
-			formatting.prettier.with({
-				filetypes = {
+		-- local sources = {
+		-- 	diagnostics.checkmake,
+		-- 	formatting.prettier.with({
+		-- 		filetypes = {
+		-- 			"javascript",
+		-- 			"javascriptreact",
+		-- 			"javascript.jsx",
+		-- 			"typescript",
+		-- 			"typescriptreact",
+		-- 			"typescript.tsx",
+		-- 			"html",
+		-- 			"json",
+		-- 			"yaml",
+		-- 			"markdown",
+		-- 			"go",
+		-- 		},
+		-- 	}),
+		-- 	formatting.stylua,
+		-- 	formatting.shfmt.with({ args = { "-i", "4" } }),
+		-- }
+
+		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+		null_ls.setup({
+			-- debug = true, -- Enable debug mode. Inspect logs with :NullLsLog.
+			sources = {
+				null_ls.builtins.formatting.prettier.with({
+					command = "./node_modules/.bin/prettier", extra_args = { "--config", ".prettierrc" },
+					filetypes = {
 					"javascript",
 					"javascriptreact",
+					"javascript.jsx",
 					"typescript",
 					"typescriptreact",
+					"typescript.tsx",
 					"html",
 					"json",
 					"yaml",
 					"markdown",
 					"go",
-				},
-			}),
-			formatting.stylua,
-			formatting.shfmt.with({ args = { "-i", "4" } }),
-		}
-
-		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-		null_ls.setup({
-			-- debug = true, -- Enable debug mode. Inspect logs with :NullLsLog.
-			sources = sources,
+					},
+				}),
+			},
 			-- you can reuse a shared lspconfig on_attach callback here
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
