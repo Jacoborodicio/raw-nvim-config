@@ -32,4 +32,5 @@ require("lazy").setup({
 	require("plugins.surround"),
 	-- require("plugins.copilot"),
 	require("plugins.render-markdown"),
+	require("plugins.markdown-preview"),
 })
