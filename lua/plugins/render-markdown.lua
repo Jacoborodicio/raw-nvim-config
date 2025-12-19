@@ -7,12 +7,14 @@ return {
 		checkbox = {
 			unchecked = { icon = "[ ] " },
 			checked = { icon = "[✔] " },
-			-- unchecked = { icon = "⭕ " },
-			-- checked = { icon = "✅ " },
 			custom = { todo = { raw = "[todo]", rendered = "◯ab " } },
 			enabled = true,
 			render_modes = false,
 			position = "inline",
 		},
+		heading = {
+			position = 'inline',
+			icons = { '[1] ', '[2] ', '[3] '}
+		}
 	},
 }
