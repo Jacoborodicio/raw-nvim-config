@@ -14,7 +14,6 @@ return {
 		},
 		heading = {
 			position = 'inline',
-			icons = { '[1] ', '[2] ', '[3] '}
 		}
 	},
 }
