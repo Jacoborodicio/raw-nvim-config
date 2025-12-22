@@ -14,6 +14,9 @@ return {
 		},
 		heading = {
 			position = 'inline',
+		},
+		bullet = {
+			icons = {'🔸 ', '🔹 ','▫️ ','▪️ '},
 		}
 	},
 }
