@@ -44,6 +44,24 @@ return {
 		--    That is to say, every time a new file is opened that is associated with
 		--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
 		--    function will be executed to configure the current buffer
+		--
+		if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
+		  vim.api.nvim_clear_autocmds({
+		    group = "kickstart-lsp-format",
+		    buffer = event.buf,
+		  })
+
+		  vim.api.nvim_create_autocmd("BufWritePre", {
+		    group = vim.api.nvim_create_augroup("kickstart-lsp-format", { clear = false }),
+		    buffer = event.buf,
+		    callback = function()
+		      vim.lsp.buf.format({
+			bufnr = event.buf,
+			timeout_ms = 2000,
+		      })
+		    end,
+		  })
+		end
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -162,7 +180,11 @@ return {
 			--    https://github.com/pmizio/typescript-tools.nvim
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
-			ts_ls = {}, -- tsserver is deprecated
+			ts_ls = {
+				capabilities = {
+					documentFormattingProvider = false
+				}
+			}, -- tsserver is deprecated
 			ruff = {},
 			pylsp = {
 				settings = {
@@ -180,13 +202,25 @@ return {
 					},
 				},
 			},
-			html = { filetypes = { "html", "twig", "hbs" } },
+			html = { filetypes = { "html", "twig", "hbs" },
+				capabilities = {
+					documentFormattingProvider = false
+				}
+			},
 			biome = {},
 			gopls = {},
-			cssls = {},
+			cssls = {
+				capabilities = {
+					documentFormattingProvider = false
+				}
+			},
 			dockerls = {},
 			sqlls = {},
-			jsonls = {},
+			jsonls = {
+				capabilities = {
+					documentFormattingProvider = false
+				}
+			},
 			yamlls = {},
 
 			lua_ls = {
