@@ -10,8 +10,8 @@ return {
 			custom = { todo = { raw = "[todo]", rendered = "◯ab " } },
 			enabled = true,
 			render_modes = false,
-			position = "inline",
 		},
+		latex = { enabled = false },
 		heading = {
 			position = 'inline',
 		},

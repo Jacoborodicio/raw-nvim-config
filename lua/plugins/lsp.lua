@@ -78,7 +78,49 @@ return {
 				-- Jump to the definition of the word under your cursor.
 				--  This is where a variable was first declared, or where a function is defined, etc.
 				--  To jump back, press <C-t>.
-				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+				map("gd", function()
+					local clients = vim.lsp.get_clients({ bufnr = 0 })
+					if #clients == 0 then
+						vim.notify("No LSP client attached", vim.log.levels.INFO)
+						return
+					end
+					-- Use first client's encoding
+					local encoding = clients[1].offset_encoding or "utf-16"
+					local params = vim.lsp.util.make_position_params(0, encoding)
+					vim.lsp.buf_request_all(0, "textDocument/definition", params, function(results)
+						-- Collect all locations from all LSP clients
+						local locations = {}
+						local seen = {}
+						for _, res in pairs(results) do
+							if res.result then
+								local locs = vim.islist(res.result) and res.result or { res.result }
+								for _, loc in ipairs(locs) do
+									-- Get URI (handle both Location and LocationLink)
+									local uri = loc.uri or loc.targetUri
+									local range = loc.range or loc.targetSelectionRange
+									if uri and range then
+										local key = uri .. ":" .. range.start.line .. ":" .. range.start.character
+										if not seen[key] then
+											seen[key] = true
+											table.insert(locations, loc)
+										end
+									end
+								end
+							end
+						end
+						if #locations == 0 then
+							vim.notify("No definition found", vim.log.levels.INFO)
+							return
+						end
+						-- If single unique result, jump directly
+						if #locations == 1 then
+							vim.lsp.util.jump_to_location(locations[1], encoding)
+						else
+							-- Multiple results, use telescope
+							require("telescope.builtin").lsp_definitions({ initial_mode = "normal" })
+						end
+					end)
+				end, "[G]oto [D]efinition")
 
 				-- Find references for the word under your cursor.
 				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -118,7 +160,7 @@ return {
 				--
 				-- When you move your cursor, the highlights will be cleared (the second autocommand).
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
 					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = event.buf,
@@ -145,7 +187,7 @@ return {
 				-- code, if the language server you are using supports them
 				--
 				-- This may be unwanted, since they displace some of your code
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
@@ -176,15 +218,6 @@ return {
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			--
-			-- Some languages (like typescript) have entire language plugins that can be useful:
-			--    https://github.com/pmizio/typescript-tools.nvim
-			--
-			-- But for many setups, the LSP (`tsserver`) will work just fine
-			ts_ls = {
-				capabilities = {
-					documentFormattingProvider = false
-				}
-			}, -- tsserver is deprecated
 			ruff = {},
 			pylsp = {
 				settings = {

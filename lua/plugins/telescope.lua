@@ -61,6 +61,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
 					-- file_ignore_patterns = { "node_modules", ".venv" },
 					hidden = true,
 				},
+				lsp_definitions = {
+					file_ignore_patterns = { "node_modules" },
+				},
+				lsp_references = {
+					file_ignore_patterns = { "node_modules" },
+				},
+				lsp_implementations = {
+					file_ignore_patterns = { "node_modules" },
+				},
+				lsp_type_definitions = {
+					file_ignore_patterns = { "node_modules" },
+				},
 			},
 			live_grep = {
 				file_ignore_patterns = { "node_modules", ".git", ".venv" },
