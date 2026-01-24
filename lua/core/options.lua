@@ -26,6 +26,7 @@ vim.o.splitright = true -- Force all vertical splits to go to the right of curre
 vim.o.hlsearch = true -- Set highlight on search (default: true)
 vim.o.showmode = false -- We don't need to see things like -- INSERT -- anymore (default: true)
 vim.opt.termguicolors = true -- Set termguicolors to enable highlight groups (default: false)
+vim.opt.colorcolumn = "120"
 vim.o.whichwrap = "bs<>[]hl" -- Which "horizontal" keys are allowed to travel to prev/next line (default: 'b,s')
 vim.o.numberwidth = 4 -- Set number column width to 2 {default 4} (default: 4)
 vim.o.swapfile = false -- Creates a swapfile (default: true)
