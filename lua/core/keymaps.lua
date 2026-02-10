@@ -129,3 +129,12 @@ vim.keymap.set(
 )
 
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Hover action: Show Type/Documentation" })
+
+-- obsidian --
+vim.keymap.set("n", "<leader>oo", "<cmd>Obsidian quick_switch<CR>", { desc = "Quick switch note" })
+vim.keymap.set("n", "<leader>on", "<cmd>Obsidian new<CR>",          { desc = "New note" })
+vim.keymap.set("n", "<leader>od", "<cmd>Obsidian today<CR>",        { desc = "Today's daily note" })
+vim.keymap.set("n", "<leader>os", "<cmd>Obsidian search<CR>",       { desc = "Search notes" })
+vim.keymap.set("n", "<leader>ob", "<cmd>Obsidian backlinks<CR>",    { desc = "Show backlinks" })
+vim.keymap.set("n", "<leader>ot", "<cmd>Obsidian tags<CR>",         { desc = "Browse tags" })
+vim.keymap.set("n", "<leader>ol", "<cmd>Obsidian links<CR>",        { desc = "Show links" })

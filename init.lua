@@ -32,4 +32,6 @@ require("lazy").setup({
 	require("plugins.surround"),
 	require("plugins.render-markdown"),
 	require("plugins.markdown-preview"),
+	require("plugins.obsidian"),
+	require("plugins.img-clip"),
 })
