@@ -130,6 +130,9 @@ vim.keymap.set(
 
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Hover action: Show Type/Documentation" })
 
+-- markdown preview --
+vim.keymap.set("n", "<leader>wm", "<cmd>MarkdownPreviewToggle<CR>", { desc = "[W]orkspace [M]arkdown preview toggle" })
+
 -- obsidian --
 vim.keymap.set("n", "<leader>oo", "<cmd>Obsidian quick_switch<CR>", { desc = "Quick switch note" })
 vim.keymap.set("n", "<leader>on", "<cmd>Obsidian new<CR>",          { desc = "New note" })

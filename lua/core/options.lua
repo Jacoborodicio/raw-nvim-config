@@ -1,4 +1,11 @@
-vim.o.spell = true
+vim.o.spell = false
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text", "gitcommit", "plaintex" },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = "en_us"
+  end,
+})
 vim.o.foldmethod = "indent" -- Uses indentation to detect folds
 vim.o.foldenable = true -- Enables folding (open by default)
 vim.o.foldlevel = 99 -- It opens all the folds by default

@@ -24,5 +24,11 @@ return {
 
 		vim.keymap.set("n", "<leader>bg", toggle_transparency, { noremap = true, silent = true })
 		vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#ffffff", bg = "#000000", bold = true })
+
+		-- render-markdown callout highlights (vibrant for dark themes)
+		vim.api.nvim_set_hl(0, "RenderMarkdownInfo", { fg = "#5ec4ff", bold = true })
+		vim.api.nvim_set_hl(0, "RenderMarkdownHint", { fg = "#c792ea", bold = true })
+		vim.api.nvim_set_hl(0, "RenderMarkdownWarn", { fg = "#ffcc00", bold = true })
+		vim.api.nvim_set_hl(0, "RenderMarkdownQuote", { fg = "#8a8a8a", italic = true })
 	end,
 }
