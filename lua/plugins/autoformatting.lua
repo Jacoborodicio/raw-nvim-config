@@ -2,83 +2,27 @@ return {
 	"nvimtools/none-ls.nvim",
 	dependencies = {
 		"nvimtools/none-ls-extras.nvim",
-		"jayp0521/mason-null-ls.nvim", -- ensure dependencies are installed
+		"jayp0521/mason-null-ls.nvim",
 	},
 	config = function()
 		local null_ls = require("null-ls")
-		local formatting = null_ls.builtins.formatting -- to setup formatters
-		local diagnostics = null_ls.builtins.diagnostics -- to setup linters
+		local diagnostics = null_ls.builtins.diagnostics
 
-		-- Formatters & linters for mason to install
+		-- Only linters here — formatters are installed via mason-tool-installer in lsp.lua
 		require("mason-null-ls").setup({
 			ensure_installed = {
-				"prettier", -- ts/js formatter
-				"stylua", -- luar formatter
-				"eslint_d", -- ts/js linter
-				"shfmt", -- shell formatter
-				"checkmake", --linter for Makefiles
-				"gofumpt", -- Go formatter (alternative to gofmt)
-				"goimports", -- Adds missing imports in Go
-				"golangci_lint", -- Linter for Go
+				"eslint_d",      -- ts/js linter
+				"checkmake",     -- linter for Makefiles
+				"golangci_lint", -- linter for Go
 			},
 			automatic_installation = true,
 		})
 
-		-- local sources = {
-		-- 	diagnostics.checkmake,
-		-- 	formatting.prettier.with({
-		-- 		filetypes = {
-		-- 			"javascript",
-		-- 			"javascriptreact",
-		-- 			"javascript.jsx",
-		-- 			"typescript",
-		-- 			"typescriptreact",
-		-- 			"typescript.tsx",
-		-- 			"html",
-		-- 			"json",
-		-- 			"yaml",
-		-- 			"markdown",
-		-- 			"go",
-		-- 		},
-		-- 	}),
-		-- 	formatting.stylua,
-		-- 	formatting.shfmt.with({ args = { "-i", "4" } }),
-		-- }
-
-		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 		null_ls.setup({
-			-- debug = true, -- Enable debug mode. Inspect logs with :NullLsLog.
 			sources = {
-				null_ls.builtins.formatting.prettier.with({
-					command = "./node_modules/.bin/prettier", extra_args = { "--config", ".prettierrc" },
-					filetypes = {
-					"javascript",
-					"javascriptreact",
-					"javascript.jsx",
-					"typescript",
-					"typescriptreact",
-					"typescript.tsx",
-					"html",
-					"json",
-					"yaml",
-					"markdown",
-					"go",
-					},
-				}),
+				diagnostics.checkmake,
+				require("none-ls.diagnostics.eslint_d"),
 			},
-			-- you can reuse a shared lspconfig on_attach callback here
-			on_attach = function(client, bufnr)
-				if client.supports_method("textDocument/formatting") then
-					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						group = augroup,
-						buffer = bufnr,
-						callback = function()
-							vim.lsp.buf.format({ async = false })
-						end,
-					})
-				end
-			end,
 		})
 	end,
 }

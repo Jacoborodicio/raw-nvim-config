@@ -40,9 +40,12 @@ return { -- Highlight, edit, and navigate code
 			additional_vim_regex_highlighting = { "ruby" },
 		},
 		indent = { enable = true, disable = { "ruby" } },
+	},
+	config = function(_, opts)
+		require("nvim-treesitter").setup(opts)
 		-- Apply custom highlights after colorscheme loads
 		vim.schedule(function()
 			vim.api.nvim_set_hl(0, "@markup.link", { fg = "#b3ecff", italic = true, underline = false })
-		end),
-	},
+		end)
+	end,
 }
